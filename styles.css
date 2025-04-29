@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.main {
+  height: 100vh;
+  background-image: url(assets/home\ image.png);
+  background-size: cover;
+  background-position: top;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading-2 {
+  margin-top: 70%;
+}
+
+/* .continue-button {
+  position: ;
+} */
