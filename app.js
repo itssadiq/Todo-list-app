@@ -1,10 +1,12 @@
-const mainElement = document.querySelector(".js-main");
-const mainElement02 = document.querySelector(".js-main-2");
-document.querySelector(".js-continue-button").addEventListener("click", () => {
-  mainElement.classList.add("hide");
-  mainElement02.classList.add("show");
-
-  html = `
+function renderTodoList() {
+  const mainElement = document.querySelector(".js-main");
+  const mainElement02 = document.querySelector(".js-main-2");
+  document
+    .querySelector(".js-continue-button")
+    .addEventListener("click", () => {
+      mainElement.classList.add("hide");
+      mainElement02.classList.add("show");
+      html = `
     <h2>Today</h2>
 
       <div class="date">
@@ -58,7 +60,26 @@ document.querySelector(".js-continue-button").addEventListener("click", () => {
       <div class="checkbox">
         <input type="checkbox" name="" id="" /> Water indoor plants
       </div>
-  `;
 
-  mainElement02.innerHTML = html;
-});
+      <div class="task-input">
+        <input
+          type="text"
+          placeholder="Write a task..."
+          class="task-input-field js-task-input"
+        />
+        <button class="task-add-button">Add</button>
+      </div>
+  `;
+      mainElement02.innerHTML = html;
+      const inputElement = document.querySelector(".js-task-input");
+
+      inputElement.addEventListener("click", () => {
+        console.log("clicked");
+        mainElement02.classList.remove("show");
+        mainElement02.classList.add("hide");
+        renderTodoList();
+      });
+    });
+}
+
+renderTodoList();
