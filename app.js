@@ -1,12 +1,14 @@
 function renderTodoList() {
   const mainElement = document.querySelector(".js-main");
   const mainElement02 = document.querySelector(".js-main-2");
+  const mainElement03 = document.querySelector(".js-main-3");
+
   document
     .querySelector(".js-continue-button")
     .addEventListener("click", () => {
       mainElement.classList.add("hide");
       mainElement02.classList.add("show");
-      html = `
+      let main2HTML = `
     <h2>Today</h2>
 
       <div class="date">
@@ -61,22 +63,38 @@ function renderTodoList() {
         <input type="checkbox" name="" id="" /> Water indoor plants
       </div>
 
-      <div class="task-input">
-        <input
-          type="text"
+      <div class="input-div">
+      <input
+      type="text"
           placeholder="Write a task..."
-          class="task-input-field js-task-input"
-        />
-        <button class="task-add-button">Add</button>
-      </div>
-  `;
-      mainElement02.innerHTML = html;
-      const inputElement = document.querySelector(".js-task-input");
+          class="task js-task"
+          />
+          <button class="task-add">Add</button>
+          </div>
+          `;
+      mainElement02.innerHTML = main2HTML;
+
+      const inputElement = document.querySelector(".js-task");
 
       inputElement.addEventListener("click", () => {
         console.log("clicked");
         mainElement02.classList.remove("show");
         mainElement02.classList.add("hide");
+
+        let main3HTML = `
+          <input type="text" class="task-input" placeholder="Write a task..." />
+          <input type="date" class="task-date" />
+          <select name="" id="" class="task-category">
+            <option value="" selected>Select task category</option>
+            <option value="">Personal</option>
+            <option value="">Work</option>
+            <option value="">Self Improvement</option>
+            <option value="">Study</option>
+          </select>
+        `;
+        mainElement03.classList.add("show");
+        mainElement03.innerHTML = main3HTML;
+
         renderTodoList();
       });
     });

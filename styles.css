@@ -86,19 +86,19 @@ body {
   gap: 20px;
 }
 
-.task-input {
+.input-div {
   display: flex;
   justify-content: center;
 }
 
-.task-input-field {
+.task {
   border: none;
   width: 70%;
   padding: 10px 20px;
   font-size: 15px;
 }
 
-.task-add-button {
+.task-add {
   border: none;
   border-radius: 5px;
   background-color: #393433;
@@ -107,6 +107,25 @@ body {
   padding: 10px 20px;
 }
 
-/* .main-03 {
+.main-03 {
+  width: 90%;
+  height: 100vh;
+  margin: 0 auto;
+  display: none;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+}
+
+.task-input,
+.task-category,
+.task-date {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.task-input {
   margin-top: 100px;
-} */
+}
