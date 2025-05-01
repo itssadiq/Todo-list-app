@@ -1,6 +1,19 @@
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 
+const todoList = [
+  {
+    name: "Exercise",
+    dueDate: "05-05-2025",
+  },
+];
+
+renderTodoList();
+
 function renderTodoList() {
+  const mainElement = document.querySelector(".js-main");
+  const mainElement02 = document.querySelector(".js-main-2");
+  const mainElement03 = document.querySelector(".js-main-3");
+
   const today = dayjs();
   const currentDay = today.format("ddd");
   const currentDate = today.format("D");
@@ -24,10 +37,6 @@ function renderTodoList() {
   const day4 = today.add(4, "day");
   const day4day = day4.format("ddd");
   const day4date = day4.format("D");
-
-  const mainElement = document.querySelector(".js-main");
-  const mainElement02 = document.querySelector(".js-main-2");
-  const mainElement03 = document.querySelector(".js-main-3");
 
   document
     .querySelector(".js-continue-button")
@@ -99,28 +108,50 @@ function renderTodoList() {
       const inputElement = document.querySelector(".js-task");
 
       inputElement.addEventListener("click", () => {
-        console.log("clicked");
         mainElement02.classList.remove("show");
         mainElement02.classList.add("hide");
 
         let main3HTML = `
-          <input type="text" class="task-input" placeholder="Write a task..." />
-          <input type="date" class="task-date" />
-          <select name="" id="" class="task-category">
+           <input
+              type="text"
+              class="task-input js-task-input"
+              placeholder="Write a task..."
+           />
+          <input type="date" class="task-date js-task-date" />
+          <select name="" id="" class="task-category js-task-category">
             <option value="" selected>Select task category</option>
             <option value="">Personal</option>
             <option value="">Work</option>
             <option value="">Self Improvement</option>
             <option value="">Study</option>
           </select>
-          <button class="add-button"></button>
+          <button class="add-button js-add-button">Add</button>
         `;
         mainElement03.classList.add("show");
         mainElement03.innerHTML = main3HTML;
+
+        document
+          .querySelector(".js-add-button")
+          .addEventListener("click", () => {
+            const taskInputElement = document.querySelector(".js-task-input");
+            const name = taskInputElement.value;
+
+            const dateInputElement = document.querySelector(".js-task-date");
+            const dueDate = dateInputElement.value;
+
+            todoList.push({
+              name,
+              dueDate,
+            });
+
+            mainElement02.classList.remove("hide");
+            mainElement02.classList.add("show");
+
+            mainElement03.classList.remove("show");
+            mainElement03.classList.add("hide");
+          });
 
         renderTodoList();
       });
     });
 }
-
-renderTodoList();
