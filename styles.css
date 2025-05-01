@@ -23,7 +23,6 @@ body {
   background-position: top;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -43,23 +42,25 @@ body {
   color: #ffffff;
   padding: 10px 0px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
+  position: absolute;
+  bottom: 0;
+  font-size: 1em;
+  font-weight: 500;
 }
 
 .main-02 {
   display: none;
-  justify-content: space-evenly;
   height: 100vh;
   width: 90%;
-  margin: 30px auto 0px auto;
+  margin: 10px auto 0px auto;
   flex-direction: column;
 }
 
 .date {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
-  height: 8%;
   gap: 5px;
 }
 
@@ -85,6 +86,11 @@ body {
   font-size: 0.8em;
 }
 
+.task-list {
+  height: 70%;
+  overflow-y: auto;
+}
+
 .checkbox {
   display: flex;
   margin-top: 30px;
@@ -95,9 +101,13 @@ body {
 }
 
 .input-div {
-  margin-top: 10px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  position: fixed;
+  bottom: 5px;
+  width: 100%;
+  padding: 5px;
+  gap: 5px;
 }
 
 .task {
@@ -105,6 +115,8 @@ body {
   width: 70%;
   padding: 10px 20px;
   font-size: 15px;
+  background-color: lightgray;
+  border-radius: 10px;
 }
 
 .task-add,
@@ -124,7 +136,6 @@ body {
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
   gap: 20px;
 }
 
@@ -135,8 +146,15 @@ body {
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px 15px;
+  font-size: 1.3em;
+}
+
+.add-button {
+  font-size: 1em;
+  width: 25%;
+  font-weight: 600;
 }
 
 .task-input {
-  margin-top: 100px;
+  margin-top: 40%;
 }

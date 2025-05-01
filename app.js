@@ -1,12 +1,4 @@
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-
-const todoList = [
-  {
-    name: "Exercise",
-    dueDate: "05-05-2025",
-    category: "Personal",
-  },
-];
+const todoList = [];
 
 loadPages();
 

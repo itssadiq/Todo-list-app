@@ -21,41 +21,10 @@
     </div>
 
     <div class="main-02 js-main-2">
-      <h2>Today</h2>
+      <div class="date js-date"></div>
 
-      <div class="date">
-        <div class="date-box">
-          <div>MON</div>
-          <div>25</div>
-        </div>
-        <div class="date-box current-date">
-          <div>TUE</div>
-          <div>26</div>
-        </div>
-        <div class="date-box">
-          <div>WED</div>
-          <div>27</div>
-        </div>
-        <div class="date-box">
-          <div>THU</div>
-          <div>28</div>
-        </div>
-        <div class="date-box">
-          <div>FRI</div>
-          <div>29</div>
-        </div>
-        <div class="date-box">
-          <div>SAT</div>
-          <div>30</div>
-        </div>
-      </div>
-
-      <p class="category-name">DESIGN</p>
-      <div class="js-task-list">
-        <!-- <div class="checkbox">
-          <input type="checkbox" name="" id="" /> Create icons for a dashboard
-        </div> -->
-      </div>
+      <p class="category-name">General</p>
+      <div class="js-task-list task-list"></div>
 
       <div class="input-div">
         <input type="text" placeholder="Write a task..." class="task js-task" />
@@ -69,11 +38,7 @@
         class="task-input js-task-input"
         placeholder="Write a task..."
       />
-      <input
-        type="date"
-        class="task-date js-task-date"
-        placeholder="Select Due Date"
-      />
+      <input type="date" class="task-date js-task-date" />
       <select name="" id="" class="task-category js-task-category">
         <option value="" selected>Select task category</option>
         <option value="">Personal</option>
@@ -84,6 +49,7 @@
       <button class="add-button js-add-button">Add</button>
     </div>
 
+    <script src="dates.js" type="module"></script>
     <script src="app.js" type="module"></script>
   </body>
 </html>
