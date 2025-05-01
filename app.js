@@ -25,7 +25,7 @@ function showTasksPage(mainElement, mainElement02) {
     .addEventListener("click", () => {
       show();
 
-      const taskElement = document.querySelector(".js-task-list");
+      renderTasks();
     });
 
   function show() {
@@ -36,25 +36,19 @@ function showTasksPage(mainElement, mainElement02) {
 
 function showInputsPage(mainElement02, mainElement03) {
   const inputElement = document.querySelector(".js-task");
+  const addButton = document.querySelector(".js-add-button");
 
   inputElement.addEventListener("click", () => {
     show();
-
-    loadBackTasks(mainElement02, mainElement03);
-
-    function show() {
-      mainElement02.classList.remove("show");
-      mainElement03.classList.add("show");
-    }
   });
-}
+  function show() {
+    mainElement02.classList.remove("show");
+    mainElement03.classList.add("show");
+  }
 
-function loadBackTasks(mainElement02, mainElement03) {
-  document.querySelector(".js-add-button").addEventListener("click", () => {
+  addButton.addEventListener("click", () => {
     mainElement02.classList.add("show");
-
     mainElement03.classList.remove("show");
-
     addTodo();
   });
 }
@@ -75,5 +69,27 @@ function addTodo() {
     category,
   });
 
-  console.log(todoList);
+  renderTasks();
+
+  taskInputElement.value = "";
+  dateElement.value = "";
+  categoryElement.value = "";
+}
+
+function renderTasks() {
+  let todoListHTML = "";
+
+  todoList.forEach((todo) => {
+    const { name, dueDate, category } = todo;
+
+    const html = `
+      <div class="checkbox">
+          <input type="checkbox" name="" id="" /> ${name}
+      </div>
+    `;
+
+    todoListHTML += html;
+  });
+
+  document.querySelector(".js-task-list").innerHTML = todoListHTML;
 }
