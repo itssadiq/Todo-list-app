@@ -37,7 +37,6 @@ function showInputsPage(mainElement02, mainElement03) {
     mainElement02.classList.remove("show");
     mainElement03.classList.add("show");
   }
-
   addButton.addEventListener("click", () => {
     mainElement02.classList.add("show");
     mainElement03.classList.remove("show");
