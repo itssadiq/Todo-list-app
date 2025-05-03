@@ -185,7 +185,8 @@ body {
 }
 
 .task-add,
-.add-button {
+.add-button,
+.back-button {
   border: none;
   border-radius: 5px;
   background-color: #393433;
@@ -214,7 +215,8 @@ body {
   font-size: 1.3em;
 }
 
-.add-button {
+.add-button,
+.back-button {
   font-size: 1em;
   width: 25%;
   font-weight: 600;

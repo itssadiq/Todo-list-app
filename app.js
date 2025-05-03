@@ -29,6 +29,7 @@ function showTasksPage(mainElement, mainElement02) {
 function showInputsPage(mainElement02, mainElement03) {
   const inputElement = document.querySelector(".js-task");
   const addButton = document.querySelector(".js-add-button");
+  const backButton = document.querySelector(".js-back-button");
 
   inputElement.addEventListener("click", () => {
     show();
@@ -41,6 +42,10 @@ function showInputsPage(mainElement02, mainElement03) {
     mainElement02.classList.add("show");
     mainElement03.classList.remove("show");
     addTodo();
+  });
+  backButton.addEventListener("click", () => {
+    mainElement02.classList.add("show");
+    mainElement03.classList.remove("show");
   });
 }
 
