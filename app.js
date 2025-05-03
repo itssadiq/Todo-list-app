@@ -52,7 +52,7 @@ function addTodo() {
   const dueDate = dateElement.value;
 
   const categoryElement = document.querySelector(".js-task-category");
-  const category = categoryElement.options[categoryElement.selectedIndex].text;
+  const category = categoryElement.value;
 
   todoList.push({
     name,
@@ -75,7 +75,11 @@ function renderTasks() {
 
     const html = `
       <div class="checkbox">
-          <input type="checkbox" name="" id="" /> ${name}
+        <div>
+          <input type="checkbox" name="task" id="task${name}" />
+          <label for="task${name}"> ${name} </label>
+          <p>${dueDate}</p>
+        </div>
       </div>
     `;
 
