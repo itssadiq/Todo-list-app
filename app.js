@@ -17,7 +17,7 @@ function showTasksPage(mainElement, mainElement02) {
     .addEventListener("click", () => {
       show();
 
-      renderTasks();
+      updateTasksAndCategory();
     });
 
   function show() {
@@ -60,15 +60,16 @@ function addTodo() {
     category,
   });
 
-  renderTasks();
+  updateTasksAndCategory();
 
   taskInputElement.value = "";
   dateElement.value = "";
   categoryElement.value = "";
 }
 
-function renderTasks() {
+function updateTasksAndCategory() {
   let todoListHTML = "";
+  let navbarHTML = "";
 
   todoList.forEach((todo) => {
     const { name, dueDate, category } = todo;
@@ -83,8 +84,15 @@ function renderTasks() {
       </div>
     `;
 
+    const categoryHTML = `
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">${category}</a>
+      </li>
+    `;
     todoListHTML += html;
+    navbarHTML += categoryHTML;
   });
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
+  document.querySelector(".js-navbar-nav").innerHTML = navbarHTML;
 }
