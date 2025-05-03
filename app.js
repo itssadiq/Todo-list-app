@@ -1,4 +1,4 @@
-const todoList = [];
+const todoList = JSON.parse(localStorage.getItem("todoList")) || [];
 
 loadPages();
 
@@ -65,6 +65,8 @@ function addTodo() {
   taskInputElement.value = "";
   dateElement.value = "";
   categoryElement.value = "";
+
+  saveToStorage();
 }
 
 function updateTasksAndCategory() {
@@ -86,7 +88,7 @@ function updateTasksAndCategory() {
 
     const categoryHTML = `
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">${category}</a>
+        <a class="nav-link active" aria-current="page" href="category.html?category=${category}">${category}</a>
       </li>
     `;
     todoListHTML += html;
@@ -95,4 +97,8 @@ function updateTasksAndCategory() {
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
   document.querySelector(".js-navbar-nav").innerHTML = navbarHTML;
+}
+
+function saveToStorage() {
+  localStorage.setItem("todoList", JSON.stringify(todoList));
 }
