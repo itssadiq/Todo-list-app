@@ -33,33 +33,13 @@
     <!-- Task list page -->
 
     <div class="main-02 js-main-2">
-      <nav class="navbar navbar-expand-sm">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Todo List</a>
-          <button
-            class="navbar-toggler ms-auto"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarsExample03"
-            aria-controls="navbarsExample03"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarsExample03">
-            <ul class="navbar-nav js-navbar-nav">
-              <!-- <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li> -->
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="nav-overlay"></div>
       <div class="date js-date"></div>
 
-      <p class="category-name">Tasks</p>
+      <div class="categories js-categories">
+        <!-- <button class="category-button js-category-button">Personal</button> -->
+      </div>
+
+      <p class="category-name">All Tasks</p>
       <div class="js-task-list task-list"></div>
 
       <div class="input-div">
@@ -78,7 +58,11 @@
         placeholder="Write a task..."
       />
       <input type="date" class="task-date js-task-date" />
-      <input type="text" class="task-category js-task-category" />
+      <input
+        type="text"
+        class="task-category js-task-category"
+        placeholder="Write Category..."
+      />
       <button class="add-button js-add-button">Add</button>
       <button class="back-button js-back-button">Back</button>
     </div>
@@ -88,7 +72,7 @@
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
-    <script src="dates.js" type="module"></script>
-    <script src="app.js" type="module"></script>
+    <script src="scripts/dates.js" type="module"></script>
+    <script src="scripts/app.js" type="module"></script>
   </body>
 </html>

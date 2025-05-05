@@ -1,4 +1,4 @@
-const todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+import { todoList } from "./todoList.js";
 
 loadPages();
 
@@ -17,7 +17,8 @@ function showTasksPage(mainElement, mainElement02) {
     .addEventListener("click", () => {
       show();
 
-      updateTasksAndCategory();
+      updateTasks();
+      updateCategory();
     });
 
   function show() {
@@ -65,21 +66,20 @@ function addTodo() {
     category,
   });
 
-  updateTasksAndCategory();
-
   taskInputElement.value = "";
   dateElement.value = "";
   categoryElement.value = "";
+  updateTasks();
+  updateCategory();
 
   saveToStorage();
 }
 
-function updateTasksAndCategory() {
+function updateTasks() {
   let todoListHTML = "";
-  let navbarHTML = "";
 
   todoList.forEach((todo) => {
-    const { name, dueDate, category } = todo;
+    const { name, dueDate } = todo;
 
     const html = `
       <div class="checkbox">
@@ -91,17 +91,26 @@ function updateTasksAndCategory() {
       </div>
     `;
 
-    const categoryHTML = `
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="category.html?category=${category}">${category}</a>
-      </li>
-    `;
     todoListHTML += html;
-    navbarHTML += categoryHTML;
   });
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
-  document.querySelector(".js-navbar-nav").innerHTML = navbarHTML;
+}
+
+function updateCategory() {
+  let categoriesHTML = "";
+  const existingCategories = [];
+
+  todoList.forEach((todo) => {
+    if (!existingCategories.includes(todo.category)) {
+      existingCategories.push(todo.category);
+      categoriesHTML += `
+        <button class="category-button js-category-button">${todo.category}</button>
+      `;
+    }
+  });
+
+  document.querySelector(".js-categories").innerHTML = categoriesHTML;
 }
 
 function saveToStorage() {
