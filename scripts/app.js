@@ -95,6 +95,12 @@ function updateTasks() {
   });
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
+
+  document.querySelector(".js-all-tasks").addEventListener("click", () => {
+    document.querySelector(".js-category-name").innerHTML = "All Tasks";
+
+    updateTasks();
+  });
 }
 
 function updateCategory() {
@@ -111,6 +117,36 @@ function updateCategory() {
   });
 
   document.querySelector(".js-categories").innerHTML = categoriesHTML;
+  showCategory();
+}
+
+function showCategory() {
+  const categoryButton = document.querySelectorAll(".js-category-button");
+
+  categoryButton.forEach((button) => {
+    button.addEventListener("click", () => {
+      let todoListHTML = "";
+      todoList.forEach((todo) => {
+        if (button.innerHTML === todo.category) {
+          const { name, dueDate, category } = todo;
+
+          const html = `
+              <div class="checkbox">
+                <div>
+                  <input type="checkbox" name="task" id="task${name}" />
+                  <label for="task${name}"> ${name} </label>
+                  <p>${dueDate}</p>
+                </div>
+              </div>
+            `;
+
+          todoListHTML += html;
+          document.querySelector(".js-category-name").innerHTML = category;
+        }
+      });
+      document.querySelector(".js-task-list").innerHTML = todoListHTML;
+    });
+  });
 }
 
 function saveToStorage() {
