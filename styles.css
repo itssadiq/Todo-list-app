@@ -125,8 +125,12 @@ body {
 }
 
 .task-list {
-  height: 70%;
+  height: 60%;
   overflow-y: auto;
+}
+
+.task-list::-webkit-scrollbar {
+  display: none;
 }
 
 .checkbox {

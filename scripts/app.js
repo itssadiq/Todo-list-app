@@ -149,6 +149,7 @@ function showCategory() {
         }
       });
       document.querySelector(".js-task-list").innerHTML = todoListHTML;
+      markCompleted();
     });
   });
 }
