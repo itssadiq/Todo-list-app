@@ -1,5 +1,7 @@
 import { todoList } from "./todoList.js";
 
+const completedTasks = JSON.parse(localStorage.getItem("completedTasks")) || [];
+
 loadPages();
 
 function loadPages() {
@@ -113,7 +115,7 @@ function updateCategory() {
     if (!existingCategories.includes(todo.category)) {
       existingCategories.push(todo.category);
       categoriesHTML += `
-        <button class="category-button js-category-button">${todo.category}</button>
+       <button class="category-button js-category-button">${todo.category}</button>
       `;
     }
   });
@@ -164,6 +166,7 @@ function markCompleted() {
       todoList.forEach((todo) => {
         if (todo.name === labelName) {
           todoList.splice(index, 1);
+          completedTasks.push(todo);
         }
 
         setTimeout(() => {
@@ -175,7 +178,39 @@ function markCompleted() {
   });
   saveToStorage();
 }
+function showCompletedTasks() {
+  document
+    .querySelector(".js-completed-tasks")
+    .addEventListener("click", operation);
+
+  function operation() {
+    document.querySelector(".js-category-name").innerHTML = "Completed Tasks";
+
+    let todoListHTML = "";
+
+    completedTasks.forEach((todo) => {
+      const { name, dueDate } = todo;
+
+      const html = `
+        <div class="checkbox">
+          <div>
+            <input type="checkbox" name="task" id="task${name}" />
+            <label for="task${name}">${name}</label>
+            <p>${dueDate}</p>
+          </div>
+        </div>
+      `;
+
+      todoListHTML += html;
+    });
+
+    document.querySelector(".js-task-list").innerHTML = todoListHTML;
+  }
+}
+
+showCompletedTasks();
 
 function saveToStorage() {
   localStorage.setItem("todoList", JSON.stringify(todoList));
+  localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
 }
