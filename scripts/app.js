@@ -85,7 +85,7 @@ function updateTasks() {
       <div class="checkbox">
         <div>
           <input type="checkbox" name="task" id="task${name}" />
-          <label for="task${name}"> ${name} </label>
+          <label for="task${name}">${name}</label>
           <p>${dueDate}</p>
         </div>
       </div>
@@ -101,6 +101,8 @@ function updateTasks() {
 
     updateTasks();
   });
+
+  markCompleted();
 }
 
 function updateCategory() {
@@ -134,7 +136,7 @@ function showCategory() {
               <div class="checkbox">
                 <div>
                   <input type="checkbox" name="task" id="task${name}" />
-                  <label for="task${name}"> ${name} </label>
+                  <label for="task${name}">${name}</label>
                   <p>${dueDate}</p>
                 </div>
               </div>
@@ -147,6 +149,31 @@ function showCategory() {
       document.querySelector(".js-task-list").innerHTML = todoListHTML;
     });
   });
+}
+
+function markCompleted() {
+  const taskBlock = document.querySelectorAll(".checkbox");
+
+  taskBlock.forEach((block, index) => {
+    block.addEventListener("click", () => {
+      const checkbox = block.querySelector("input[type='checkbox']");
+      checkbox.checked = true;
+      const label = block.querySelector("label");
+      const labelName = label.innerHTML;
+
+      todoList.forEach((todo) => {
+        if (todo.name === labelName) {
+          todoList.splice(index, 1);
+        }
+
+        setTimeout(() => {
+          updateTasks();
+          updateCategory();
+        }, 1000);
+      });
+    });
+  });
+  saveToStorage();
 }
 
 function saveToStorage() {
