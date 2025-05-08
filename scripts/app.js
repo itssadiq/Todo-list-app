@@ -4,13 +4,12 @@ const completedTasks = JSON.parse(localStorage.getItem("completedTasks")) || [];
 
 loadPages();
 
-showCompletedTasks();
-
 function loadPages() {
   const mainElement = document.querySelector(".js-main");
   const mainElement02 = document.querySelector(".js-main-2");
   const mainElement03 = document.querySelector(".js-main-3");
 
+  showCompletedTasks();
   showTasksPage(mainElement, mainElement02);
   showInputsPage(mainElement02, mainElement03);
 }
@@ -99,6 +98,7 @@ function updateTasks() {
   });
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
+  document.querySelector(".js-category-name").innerHTML = "All Tasks";
 
   document.querySelector(".js-all-tasks").addEventListener("click", () => {
     document.querySelector(".js-category-name").innerHTML = "All Tasks";
@@ -178,8 +178,10 @@ function markCompleted() {
       }, 1000);
     });
   });
+
   saveToStorage();
 }
+
 function showCompletedTasks() {
   document
     .querySelector(".js-completed-tasks")
