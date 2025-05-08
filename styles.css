@@ -4,8 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #eedada;
+  --secondary-color: #393433;
+}
+
 body {
   font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
 .hide {
@@ -16,14 +22,47 @@ body {
   display: flex !important;
 }
 
-.main {
+/* .main {
   height: 100vh;
-  background-image: url(assets/home\ image.png);
+  background-image: url(https://images.unsplash.com/photo-1595411425732-e69c1abe2763?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-size: cover;
-  background-position: top;
+  background-repeat: no-repeat;
+  background-position:bottom bottom;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+} */
+.main {
+  position: relative;
+  height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1595411425732-e69c1abe2763?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom bottom;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  z-index: 1;
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* black overlay with 50% transparency */
+  z-index: -1;
 }
 
 .main-heading {
@@ -32,22 +71,25 @@ body {
 }
 
 .heading-2 {
-  font-weight: 500;
+  animation: fadein 1s ease-in;
+  color: var(--primary-color);
+  font-weight: 600;
   font-size: 1.8em;
 }
 
 .continue-button {
   width: 80%;
-  background-color: #393433;
+  background-color: var(--secondary-color);
   color: #ffffff;
   padding: 10px 0px;
   margin-bottom: 10px;
   border-radius: 10px;
   border: none;
   position: absolute;
-  bottom: 0;
+  bottom: 8%;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
+  animation: fadeout 1s ease-in;
 }
 
 .main-02 {
@@ -57,9 +99,20 @@ body {
   margin: 10px auto 0px auto;
   flex-direction: column;
 }
+.darkmode{
+  transition: all ease 0.3s;
+    background-color: var(--secondary-color);
+    color: var(--primary-color)f;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .date {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
   gap: 5px;
 }
@@ -69,14 +122,14 @@ body {
   padding: 5px;
   text-align: center;
   border-radius: 5px;
-  gap: 10px;
+  gap: 2px;
   display: flex;
   flex-direction: column;
   width: 20%;
 }
 
 .current-date {
-  background-color: gray;
+  background-color: #393433;
   color: white;
 }
 
@@ -114,8 +167,9 @@ body {
   border: none;
   border-radius: 10px;
   padding: 10px 15px;
-  background-color: gray;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  transition: 0.2s all ease;
 }
 
 .active {
@@ -123,7 +177,7 @@ body {
   border-radius: 10px;
   padding: 10px 15px;
   font-size: 1.1em;
-  background-color: purple;
+  background-color: var(--secondary-color);
   color: white;
 }
 
@@ -144,8 +198,9 @@ body {
 
 .checkbox {
   display: flex;
-  background-color: #e8dbd7;
-  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 15px;
   padding: 0px 15px;
   margin-top: 5px;
 }
@@ -170,24 +225,28 @@ body {
 }
 
 .input-div {
-  margin: 0 auto;
   display: flex;
   position: fixed;
   bottom: 5px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   padding: 5px;
-  gap: 5px;
+  gap: 10px;
 }
 
 .task {
   border: none;
-  width: 70%;
+  width: 100%;
   padding: 10px 20px;
-  font-size: 15px;
-  background-color: lightgray;
+  font-size: 1.2em;
+  background-color: var(--primary-color);
   border-radius: 10px;
+  color: var(--primary-color);
 }
-
+.task::placeholder {
+  color: var(--secondary-color);
+  font-weight: 500;
+}
 .task-add,
 .add-button,
 .back-button {
@@ -198,6 +257,11 @@ body {
   width: 20%;
   padding: 10px 20px;
 }
+.task-add {
+  width: 26%;
+}
+
+/*Page-3*/
 
 .main-03 {
   width: 90%;
@@ -217,15 +281,122 @@ body {
   border-radius: 5px;
   padding: 10px 15px;
   font-size: 1.3em;
+  background-color: var(--primary-color);
+}
+
+.task-category::placeholder,
+.task-input::placeholder,
+.task-date::placeholder {
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .add-button,
 .back-button {
+  border-radius: 6px;
+  width: 35%;
   font-size: 1em;
-  width: 25%;
   font-weight: 600;
 }
 
 .task-input {
   margin-top: 40%;
+}
+
+.js-category-name {
+  font-weight: bold;
+  font-size: 1.05em;
+  color: var(--secondary-color);
+}
+
+@keyframes fadein {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*Custom Dark Mode Button*/
+
+/* From Uiverse.io by cuzpq */
+.theme-checkbox {
+  --toggle-size: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 6.25em;
+  height: 3.125em;
+  background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(50%, #efefef),
+      color-stop(50%, #2a2a2a)
+    )
+    no-repeat;
+  background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+  background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+  background-size: 205%;
+  background-position: 0;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 99em;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--toggle-size);
+}
+
+.theme-checkbox::before {
+  content: "";
+  width: 2.25em;
+  height: 2.25em;
+  position: absolute;
+  top: 0.438em;
+  left: 0.438em;
+  background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(50%, #efefef),
+      color-stop(50%, #2a2a2a)
+    )
+    no-repeat;
+  background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+  background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+  background-size: 205%;
+  background-position: 100%;
+  border-radius: 50%;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.theme-checkbox:checked::before {
+  left: calc(100% - 2.25em - 0.438em);
+  background-position: 0;
+}
+
+.theme-checkbox:checked {
+  background-position: 100%;
 }

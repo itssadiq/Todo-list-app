@@ -294,3 +294,12 @@ function saveToStorage() {
   localStorage.setItem("todoList", JSON.stringify(todoList));
   localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
 }
+
+function darkMode() {
+  let darkbtnToggle = document.querySelector(".theme-checkbox");
+
+  darkbtnToggle.addEventListener("click", () => {
+    document.body.classList.toggle("darkmode");
+  });
+}
+// darkMode()

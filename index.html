@@ -45,8 +45,11 @@
         <div class="categories js-categories"></div>
       </div>
 
-      <p class="category-name js-category-name">All Tasks</p>
-      <div class="js-task-list task-list"></div>
+      <div class="flex">
+        <p class="category-name js-category-name">All Tasks</p>
+        <input type="checkbox" class="theme-checkbox">
+      </div>
+        <div class="js-task-list task-list"></div>
 
       <div class="input-div">
         <input type="text" placeholder="Write a task..." class="task js-task" />
@@ -71,8 +74,10 @@
         placeholder="Write Category..."
         required
       />
-      <button class="add-button js-add-button">Add</button>
-      <button class="back-button js-back-button">Back</button>
+      <div class="btn-container">
+        <button class="add-button js-add-button">Add</button>
+        <button class="back-button js-back-button">Back</button>
+      </div>
     </div>
 
     <script
