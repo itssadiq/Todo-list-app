@@ -9,9 +9,10 @@ function loadPages() {
   const mainElement02 = document.querySelector(".js-main-2");
   const mainElement03 = document.querySelector(".js-main-3");
 
-  showCompletedTasks();
   showTasksPage(mainElement, mainElement02);
   showInputsPage(mainElement02, mainElement03);
+  showCompletedTasks();
+  deleteTodo();
 }
 
 function showTasksPage(mainElement, mainElement02) {
@@ -76,6 +77,7 @@ function addTodo() {
   updateCategory();
 
   saveToStorage();
+  deleteTodo();
 }
 
 function updateTasks() {
@@ -152,6 +154,7 @@ function showCategory() {
       });
       document.querySelector(".js-task-list").innerHTML = todoListHTML;
       markCompleted();
+      deleteTodo();
     });
   });
 }
@@ -160,10 +163,8 @@ function markCompleted() {
   const taskBlock = document.querySelectorAll(".checkbox");
 
   taskBlock.forEach((block) => {
-    block.addEventListener("click", () => {
-      const checkbox = block.querySelector("input[type='checkbox']");
-      checkbox.checked = true;
-      const label = block.querySelector("label");
+    const label = block.querySelector("label");
+    label.addEventListener("click", () => {
       const labelName = label.innerHTML;
 
       const taskIndex = todoList.findIndex((todo) => todo.name === labelName);
@@ -209,7 +210,71 @@ function showCompletedTasks() {
     });
 
     document.querySelector(".js-task-list").innerHTML = todoListHTML;
+    deleteCompletedTask();
   }
+}
+
+function deleteCompletedTask() {
+  const taskBlock = document.querySelectorAll(".checkbox");
+
+  taskBlock.forEach((block) => {
+    block.addEventListener("dblclick", () => {
+      const label = block.querySelector("label");
+      const labelName = label.innerHTML;
+
+      const taskIndex = completedTasks.findIndex(
+        (todo) => todo.name === labelName
+      );
+      if (taskIndex !== -1) {
+        completedTasks.splice(taskIndex, 1);
+        saveToStorage();
+      }
+
+      setTimeout(() => {
+        let todoListHTML = "";
+
+        completedTasks.forEach((todo) => {
+          const { name, dueDate } = todo;
+
+          const html = `
+        <div class="checkbox">
+          <div>
+            <input type="checkbox" name="task" id="task${name}" />
+            <label for="task${name}">${name}</label>
+            <p>${dueDate}</p>
+          </div>
+        </div>
+      `;
+
+          todoListHTML += html;
+        });
+
+        document.querySelector(".js-task-list").innerHTML = todoListHTML;
+      }, 1000);
+    });
+  });
+}
+
+function deleteTodo() {
+  const taskBlock = document.querySelectorAll(".checkbox");
+
+  taskBlock.forEach((block) => {
+    block.addEventListener("dblclick", () => {
+      const label = block.querySelector("label");
+      const labelName = label.innerHTML;
+
+      const taskIndex = todoList.findIndex((todo) => todo.name === labelName);
+      if (taskIndex !== -1) {
+        todoList.splice(taskIndex, 1);
+        saveToStorage();
+      }
+
+      setTimeout(() => {
+        updateTasks();
+        updateCategory();
+      }, 1000);
+    });
+  });
 }
 
 function saveToStorage() {
