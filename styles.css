@@ -118,6 +118,15 @@ body {
   color: white;
 }
 
+.active {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 1.1em;
+  background-color: purple;
+  color: white;
+}
+
 .category-name {
   margin-top: 15px;
   color: #d1a28b;
