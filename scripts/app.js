@@ -4,6 +4,8 @@ const completedTasks = JSON.parse(localStorage.getItem("completedTasks")) || [];
 
 loadPages();
 
+showCompletedTasks();
+
 function loadPages() {
   const mainElement = document.querySelector(".js-main");
   const mainElement02 = document.querySelector(".js-main-2");
@@ -157,24 +159,23 @@ function showCategory() {
 function markCompleted() {
   const taskBlock = document.querySelectorAll(".checkbox");
 
-  taskBlock.forEach((block, index) => {
+  taskBlock.forEach((block) => {
     block.addEventListener("click", () => {
       const checkbox = block.querySelector("input[type='checkbox']");
       checkbox.checked = true;
       const label = block.querySelector("label");
       const labelName = label.innerHTML;
 
-      todoList.forEach((todo) => {
-        if (todo.name === labelName) {
-          todoList.splice(index, 1);
-          completedTasks.push(todo);
-        }
+      const taskIndex = todoList.findIndex((todo) => todo.name === labelName);
+      if (taskIndex !== -1) {
+        const removedTask = todoList.splice(taskIndex, 1)[0];
+        completedTasks.push(removedTask);
+      }
 
-        setTimeout(() => {
-          updateTasks();
-          updateCategory();
-        }, 1000);
-      });
+      setTimeout(() => {
+        updateTasks();
+        updateCategory();
+      }, 1000);
     });
   });
   saveToStorage();
@@ -208,8 +209,6 @@ function showCompletedTasks() {
     document.querySelector(".js-task-list").innerHTML = todoListHTML;
   }
 }
-
-showCompletedTasks();
 
 function saveToStorage() {
   localStorage.setItem("todoList", JSON.stringify(todoList));
