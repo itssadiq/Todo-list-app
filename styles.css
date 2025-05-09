@@ -1,3 +1,5 @@
+/* Basic Styling */
+
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +16,8 @@ body {
   overflow: hidden;
 }
 
+/* For Pages accessibility */
+
 .hide {
   display: none !important;
 }
@@ -22,18 +26,7 @@ body {
   display: flex !important;
 }
 
-/* .main {
-  height: 100vh;
-  background-image: url(https://images.unsplash.com/photo-1595411425732-e69c1abe2763?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position:bottom bottom;
-  background-color: var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-} */
+/* Page 01 */
 .main {
   position: relative;
   height: 100vh;
@@ -56,12 +49,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* black overlay with 50% transparency */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
@@ -92,17 +80,14 @@ body {
   animation: fadeout 1s ease-in;
 }
 
+/* Page 02 */
+
 .main-02 {
   display: none;
   height: 100vh;
   width: 90%;
   margin: 10px auto 0px auto;
   flex-direction: column;
-}
-.darkmode {
-  transition: all ease 0.3s;
-  background-color: var(--secondary-color);
-  color: var(--primary-color) f;
 }
 
 .flex {
@@ -112,7 +97,6 @@ body {
 }
 
 .date {
-  /* margin-top: 10px; */
   display: flex;
   gap: 5px;
 }
@@ -132,18 +116,6 @@ body {
   background-color: #393433;
   color: white;
 }
-
-/* .categories {
-  margin-top: 15px;
-  width: 100%;
-  display: flex;
-  gap: 5px;
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-} */
 
 .tasks-buttons {
   margin-top: 15px;
