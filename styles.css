@@ -181,6 +181,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
+  padding: 10px 0px;
 }
 
 .checkbox div input {
@@ -193,7 +194,7 @@ body {
 
 .checkbox div p {
   margin-left: auto;
-  margin-top: 18px;
+  /* margin-top: 18px; */
 }
 
 .input-div {

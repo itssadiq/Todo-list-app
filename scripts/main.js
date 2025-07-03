@@ -116,7 +116,7 @@ function updateCategory() {
     }
   });
 
-  document.querySelector(".js-categories").innerHTML = categoriesHTML;
+  document.querySelector(".tasks-buttons").innerHTML += categoriesHTML;
   showCategory();
   activateButton();
 }
