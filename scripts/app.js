@@ -1,4 +1,4 @@
-import { showTasksPage, showInputsPage, showCompletedTasks } from "./main.js";
+import { showTasksPage, showInputsPage } from "./main.js";
 
 loadPages();
 
@@ -9,5 +9,4 @@ function loadPages() {
 
   showTasksPage(mainElement, mainElement02);
   showInputsPage(mainElement02, mainElement03);
-  showCompletedTasks();
 }

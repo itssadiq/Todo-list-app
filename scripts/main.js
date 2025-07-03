@@ -1,5 +1,4 @@
 import { todoList } from "./data.js";
-
 import { completedTasks } from "./data.js";
 
 export function showTasksPage(mainElement, mainElement02) {
@@ -7,9 +6,9 @@ export function showTasksPage(mainElement, mainElement02) {
     .querySelector(".js-continue-button")
     .addEventListener("click", () => {
       show();
-
       updateTasks();
       updateCategory();
+      bindCategoryButtons();
     });
 
   function show() {
@@ -31,6 +30,17 @@ export function showInputsPage(mainElement02, mainElement03) {
     mainElement03.classList.add("show");
   }
   addButton.addEventListener("click", () => {
+    const taskInputElement = document.querySelector(".js-task-input");
+    const dateElement = document.querySelector(".js-task-date");
+    const categoryElement = document.querySelector(".js-task-category");
+    if (
+      !taskInputElement.value.trim() ||
+      !dateElement.value.trim() ||
+      !categoryElement.value.trim()
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
     mainElement02.classList.add("show");
     mainElement03.classList.remove("show");
     addTodo();
@@ -43,13 +53,18 @@ export function showInputsPage(mainElement02, mainElement03) {
 
 function addTodo() {
   const taskInputElement = document.querySelector(".js-task-input");
-  const name = taskInputElement.value;
+  const name = taskInputElement.value.trim();
 
   const dateElement = document.querySelector(".js-task-date");
-  const dueDate = dateElement.value;
+  const dueDate = dateElement.value.trim();
 
   const categoryElement = document.querySelector(".js-task-category");
-  const category = categoryElement.value;
+  const category = categoryElement.value.trim();
+
+  if (!name || !dueDate || !category) {
+    alert("Please fill in all fields.");
+    return;
+  }
 
   todoList.push({
     name,
@@ -62,6 +77,7 @@ function addTodo() {
   categoryElement.value = "";
   updateTasks();
   updateCategory();
+  bindCategoryButtons();
 
   saveToStorage();
   deleteTodo();
@@ -92,23 +108,23 @@ function renderTaskList() {
 function updateTasks() {
   renderTaskList();
   document.querySelector(".js-category-name").innerHTML = "All Tasks";
-
-  document.querySelector(".js-all-tasks").addEventListener("click", () => {
-    document.querySelector(".js-category-name").innerHTML = "All Tasks";
-
-    updateTasks();
-  });
-
+  setActiveCategoryButton("all-task");
   markCompleted();
   deleteTodo();
 }
 
 function updateCategory() {
+  const tasksButtonsEl = document.querySelector(".tasks-buttons");
+  // Only remove old category buttons, keep All and Completed
+  tasksButtonsEl
+    .querySelectorAll(".js-category-button")
+    .forEach((btn) => btn.remove());
+
   let categoriesHTML = "";
   const existingCategories = [];
 
   todoList.forEach((todo) => {
-    if (!existingCategories.includes(todo.category)) {
+    if (todo.category && !existingCategories.includes(todo.category)) {
       existingCategories.push(todo.category);
       categoriesHTML += `
          <button class="category-button js-category-button">${todo.category}</button>
@@ -116,40 +132,81 @@ function updateCategory() {
     }
   });
 
-  document.querySelector(".tasks-buttons").innerHTML += categoriesHTML;
-  showCategory();
-  activateButton();
+  tasksButtonsEl.innerHTML += categoriesHTML;
+  bindCategoryButtons();
 }
 
-function showCategory() {
-  const categoryButton = document.querySelectorAll(".js-category-button");
-
-  categoryButton.forEach((button) => {
-    button.addEventListener("click", () => {
-      let todoListHTML = "";
-      todoList.forEach((todo) => {
-        if (button.innerHTML === todo.category) {
-          const { name, dueDate, category } = todo;
-
-          const html = `
-                <div class="checkbox">
-                  <div>
-                    <input type="checkbox" name="task" id="task${name}" />
-                    <label for="task${name}">${name}</label>
-                    <p>${dueDate}</p>
-                  </div>
-                </div>
-              `;
-
-          todoListHTML += html;
-          document.querySelector(".js-category-name").innerHTML = category;
-        }
-      });
-      document.querySelector(".js-task-list").innerHTML = todoListHTML;
-      markCompleted();
-      deleteTodo();
-    });
+function bindCategoryButtons() {
+  const allButtons = document.querySelectorAll(".category-button");
+  allButtons.forEach((btn) => {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
   });
+
+  const categoryButtons = document.querySelectorAll(".js-category-button");
+  categoryButtons.forEach((button) => {
+    if (
+      !button.classList.contains("js-all-tasks") &&
+      !button.classList.contains("js-completed-tasks")
+    ) {
+      button.addEventListener("click", () => {
+        let todoListHTML = "";
+        todoList.forEach((todo) => {
+          if (button.innerHTML === todo.category) {
+            const { name, dueDate, category } = todo;
+            const html = `
+                  <div class="checkbox">
+                    <div>
+                      <input type="checkbox" name="task" id="task${name}" />
+                      <label for="task${name}">${name}</label>
+                      <p>${dueDate}</p>
+                    </div>
+                  </div>
+                `;
+            todoListHTML += html;
+            document.querySelector(".js-category-name").innerHTML = category;
+          }
+        });
+        document.querySelector(".js-task-list").innerHTML = todoListHTML;
+        markCompleted();
+        deleteTodo();
+        setActiveCategoryButton(null, button);
+      });
+    }
+  });
+
+  const allBtn = document.querySelector(".js-all-tasks");
+  if (allBtn) {
+    allBtn.addEventListener("click", () => {
+      updateTasks();
+      setActiveCategoryButton("all-task");
+    });
+  }
+
+  const completedBtn = document.querySelector(".js-completed-tasks");
+  if (completedBtn) {
+    completedBtn.addEventListener("click", () => {
+      document.querySelector(".js-category-name").innerHTML = "Completed Tasks";
+      renderCompletedTasks();
+      deleteCompletedTask();
+      setActiveCategoryButton("completed-tasks");
+    });
+  }
+}
+
+function setActiveCategoryButton(type, btn) {
+  document
+    .querySelectorAll(".category-button")
+    .forEach((b) => b.classList.remove("active"));
+  if (type === "all-task") {
+    const allBtn = document.querySelector(".js-all-tasks");
+    if (allBtn) allBtn.classList.add("active");
+  } else if (type === "completed-tasks") {
+    const completedBtn = document.querySelector(".js-completed-tasks");
+    if (completedBtn) completedBtn.classList.add("active");
+  } else if (btn) {
+    btn.classList.add("active");
+  }
 }
 
 function markCompleted() {
@@ -169,6 +226,7 @@ function markCompleted() {
       setTimeout(() => {
         updateTasks();
         updateCategory();
+        bindCategoryButtons();
       }, 1000);
     });
   });
@@ -196,19 +254,6 @@ function renderCompletedTasks() {
   });
 
   document.querySelector(".js-task-list").innerHTML = todoListHTML;
-}
-
-export function showCompletedTasks() {
-  document
-    .querySelector(".js-completed-tasks")
-    .addEventListener("click", operation);
-
-  function operation() {
-    document.querySelector(".js-category-name").innerHTML = "Completed Tasks";
-
-    renderCompletedTasks();
-    deleteCompletedTask();
-  }
 }
 
 function deleteCompletedTask() {
@@ -252,18 +297,8 @@ function deleteTodo() {
       setTimeout(() => {
         updateTasks();
         updateCategory();
+        bindCategoryButtons();
       }, 1000);
-    });
-  });
-}
-
-function activateButton() {
-  const buttons = document.querySelectorAll(".category-button");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
     });
   });
 }
